@@ -11,3 +11,4 @@ One container is not enough. We need to go deeper!
   - docker docs: https://docs.docker.com/engine/reference/run/
 - 널널한 개발자
   - docker 전에 process부터!: https://www.youtube.com/watch?v=xewZYX1e5R8
+  - 전공자 수준으로 docker 및 가상화 이해하기: https://www.youtube.com/watch?v=zh0OMXg2Kog&t=587s
