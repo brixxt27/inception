@@ -92,7 +92,9 @@ protocol.
 
 ### page 7
 Here is an example diagram of the expected result:
-image.png
+<img width="918" alt="image" src="https://user-images.githubusercontent.com/83959536/223052106-b5bfb626-56ab-42f7-bfe2-babcf3f5b8fa.png">
+
+
 
 Below is an example of the expected directory structure:
 ```
