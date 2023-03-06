@@ -45,6 +45,7 @@ One container is not enough. We need to go deeper!
 - 당신은 또한 각 서비스를 위한 자신만의 Dockerfiles 를 작성해야 합니다. Dockerfiles 은 Makefile 에 의해 docker-compose.yml 파일 안에서 호출 되어야 합니다.
 - 이는 당신이 프로젝트의 도커 이미지를 스스로 빌드해야 한다는 점을 의미합니다.
 
+### page 5
 It is then forbidden to pull ready-made Docker images, as well as using services such as DockerHub
 (Alpine/Debian being excluded from this rule).
 You then have to set up:
@@ -61,6 +62,7 @@ recommended to use any hacky patch based on ’tail -f’ and so forth
 when trying to run it. Read about how daemons work and whether it’s
 a good idea to use them or not.
 
+### page 6
 Of course, using network: host or --link or links: is forbidden.
 The network line must be present in your docker-compose.yml file.
 Your containers musn’t be started with a command running an infinite
@@ -88,4 +90,92 @@ Your NGINX container must be the only entrypoint into your
 infrastructure via the port 443 only, using the TLSv1.2 or TLSv1.3
 protocol.
 
-## 6페이지까지 영어 복붙함
+### page 7
+Here is an example diagram of the expected result:
+image.png
+
+Below is an example of the expected directory structure:
+```
+$> ls -alR
+total XX
+drwxrwxr-x 3 wil wil 4096 avril 42 20:42 .
+drwxrwxrwt 17 wil wil 4096 avril 42 20:42 ..
+-rw-rw-r-- 1 wil wil XXXX avril 42 20:42 Makefile
+drwxrwxr-x 3 wil wil 4096 avril 42 20:42 srcs
+./srcs:
+total XX
+drwxrwxr-x 3 wil wil 4096 avril 42 20:42 .
+drwxrwxr-x 3 wil wil 4096 avril 42 20:42 ..
+-rw-rw-r-- 1 wil wil XXXX avril 42 20:42 docker-compose.yml
+-rw-rw-r-- 1 wil wil XXXX avril 42 20:42 .env
+drwxrwxr-x 5 wil wil 4096 avril 42 20:42 requirements
+./srcs/requirements:
+total XX
+drwxrwxr-x 5 wil wil 4096 avril 42 20:42 .
+drwxrwxr-x 3 wil wil 4096 avril 42 20:42 ..
+drwxrwxr-x 4 wil wil 4096 avril 42 20:42 bonus
+drwxrwxr-x 4 wil wil 4096 avril 42 20:42 mariadb
+drwxrwxr-x 4 wil wil 4096 avril 42 20:42 nginx
+drwxrwxr-x 4 wil wil 4096 avril 42 20:42 tools
+drwxrwxr-x 4 wil wil 4096 avril 42 20:42 wordpress
+./srcs/requirements/mariadb:
+total XX
+drwxrwxr-x 4 wil wil 4096 avril 42 20:45 .
+drwxrwxr-x 5 wil wil 4096 avril 42 20:42 ..
+drwxrwxr-x 2 wil wil 4096 avril 42 20:42 conf
+-rw-rw-r-- 1 wil wil XXXX avril 42 20:42 Dockerfile
+-rw-rw-r-- 1 wil wil XXXX avril 42 20:42 .dockerignore
+drwxrwxr-x 2 wil wil 4096 avril 42 20:42 tools
+[...]
+./srcs/requirements/nginx:
+total XX
+drwxrwxr-x 4 wil wil 4096 avril 42 20:42 .
+drwxrwxr-x 5 wil wil 4096 avril 42 20:42 ..
+drwxrwxr-x 2 wil wil 4096 avril 42 20:42 conf
+-rw-rw-r-- 1 wil wil XXXX avril 42 20:42 Dockerfile
+-rw-rw-r-- 1 wil wil XXXX avril 42 20:42 .dockerignore
+drwxrwxr-x 2 wil wil 4096 avril 42 20:42 tools
+[...]
+$> cat srcs/.env
+DOMAIN_NAME=wil.42.fr
+# certificates
+CERTS_=./XXXXXXXXXXXX
+# MYSQL SETUP
+MYSQL_ROOT_PASSWORD=XXXXXXXXXXXX
+MYSQL_USER=XXXXXXXXXXXX
+MYSQL_PASSWORD=XXXXXXXXXXXX
+[...]
+$>
+```
+For obvious security reasons, any credentials, API keys, env
+variables etc... must be saved locally in a .env file and ignored by
+git. Publicly stored credentials will lead you directly to a failure
+of the project.
+
+# Chapter 5
+## Bonus part
+### page 9
+For this project, the bonus part is aimed to be simple.
+A Dockerfile must be written for each extra service. Thus, each one of them will run
+inside its own container and will have, if necessary, its dedicated volume.
+Bonus list:
+• Set up redis cache for your WordPress website in order to properly manage the
+cache.
+• Set up a FTP server container pointing to the volume of your WordPress website.
+• Create a simple static website in the language of your choice except PHP (Yes, PHP
+is excluded!). For example, a showcase site or a site for presenting your resume.
+• Set up Adminer.
+• Set up a service of your choice that you think is useful. During the defense, you
+will have to justify your choice.
+To complete the bonus part, you have the possibility to set up extra
+services. In this case, you may open more ports to suit your needs.
+The bonus part will only be assessed if the mandatory part is
+PERFECT. Perfect means the mandatory part has been integrally done
+and works without malfunctioning. If you have not passed ALL the
+mandatory requirements, your bonus part will not be evaluated at all.
+
+# Chapter 6
+## Submission and peer-evaluation
+Turn in your assignment in your Git repository as usual. Only the work inside your
+repository will be evaluated during the defense. Don’t hesitate to double check the
+names of your folders and files to ensure they are correct.
