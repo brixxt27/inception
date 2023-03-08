@@ -48,19 +48,34 @@ One container is not enough. We need to go deeper!
 ### page 5
 It is then forbidden to pull ready-made Docker images, as well as using services such as DockerHub
 (Alpine/Debian being excluded from this rule).
-You then have to set up:
-• A Docker container that contains NGINX with TLSv1.2 or TLSv1.3 only.
-• A Docker container that contains WordPress + php-fpm (it must be installed and
-configured) only without nginx.
-• A Docker container that contains MariaDB only without nginx.
-• A volume that contains your WordPress database.
-• A second volume that contains your WordPress website files.
-• A docker-network that establishes the connection between your containers.
-Your containers have to restart in case of a crash.
-A Docker container is not a virtual machine. Thus, it is not
-recommended to use any hacky patch based on ’tail -f’ and so forth
-when trying to run it. Read about how daemons work and whether it’s
-a good idea to use them or not.
+도커 허브와 같은 서비스를 사용하는 것뿐 아니라 이미 만들어져 있는 도커 이미지를 pull 하는 것은 금지 됩니다.
+
+- You then have to set up:
+- 당신은 아래와 같이 설정해야 한다.
+
+- A Docker container that contains NGINX with TLSv1.2 or TLSv1.3 only.
+- NGINX 를 포함하는 도커 컨테이너는 TLSv1.2 or TLSv1.3 만을 사용해야 한다.
+
+- A Docker container that contains WordPress + php-fpm (it must be installed and configured) only without nginx.
+- WordPress + php-fpm (설치와 설정이 되어야 한다) 을 포함하는 도커 컨테이너는 nginx 없이 독립적인 컨테이너로 있어야 한다.
+
+- A Docker container that contains MariaDB only without nginx.
+- MariaDB 를 포함하는 도커 컨테이너는 nginx 없이 있어야 한다.
+
+- A volume that contains your WordPress database.
+- 당신의 WordPress database 를 포함하는 volume 
+
+- A second volume that contains your WordPress website files.
+- 당신의 WordPress website files 를 포함하는 두 번째 volume
+
+- A docker-network that establishes the connection between your containers.
+- 당신의 컨테이너들 사이의 연결을 만드는 docker-network
+
+- Your containers have to restart in case of a crash.
+- 당신의 컨테이너는 crash 같은 상황에 restart 되어야 한다.
+
+- A Docker container is not a virtual machine. Thus, it is not recommended to use any hacky patch based on ’tail -f’ and so forth when trying to run it. Read about how daemons work and whether it’s a good idea to use them or not.
+- 도커 컨테이너는 가상 머신이 아니다. 그러므로 
 
 ### page 6
 Of course, using network: host or --link or links: is forbidden.
@@ -70,7 +85,7 @@ loop. Thus, this also applies to any command used as entrypoint, or
 used in entrypoint scripts. The following are a few prohibited hacky
 patches: tail -f, bash, sleep infinity, while true.
 Read about PID 1 and the best practices for writing Dockerfiles.
-• In your WordPress database, there must be two users, one of them being the administrator. The administrator’s username can’t contain admin/Admin or administrator/Administrator (e.g., admin, administrator, Administrator, admin-123, and
+- In your WordPress database, there must be two users, one of them being the administrator. The administrator’s username can’t contain admin/Admin or administrator/Administrator (e.g., admin, administrator, Administrator, admin-123, and
 so forth).
 Your volumes will be available in the /home/login/data folder of the
 host machine using Docker. Of course, you have to replace the login
@@ -161,13 +176,13 @@ For this project, the bonus part is aimed to be simple.
 A Dockerfile must be written for each extra service. Thus, each one of them will run
 inside its own container and will have, if necessary, its dedicated volume.
 Bonus list:
-• Set up redis cache for your WordPress website in order to properly manage the
+- Set up redis cache for your WordPress website in order to properly manage the
 cache.
-• Set up a FTP server container pointing to the volume of your WordPress website.
-• Create a simple static website in the language of your choice except PHP (Yes, PHP
+- Set up a FTP server container pointing to the volume of your WordPress website.
+- Create a simple static website in the language of your choice except PHP (Yes, PHP
 is excluded!). For example, a showcase site or a site for presenting your resume.
-• Set up Adminer.
-• Set up a service of your choice that you think is useful. During the defense, you
+- Set up Adminer.
+- Set up a service of your choice that you think is useful. During the defense, you
 will have to justify your choice.
 To complete the bonus part, you have the possibility to set up extra
 services. In this case, you may open more ports to suit your needs.
