@@ -7,7 +7,7 @@
   - 도커 : 이미지 만드는 법 - Dockerfile & build: https://www.youtube.com/watch?v=0kQC19w0gTI
   - Docker compose 를 이용해서 복잡한 도커 컨테이너를 제어하기: https://www.youtube.com/watch?v=EK6iYRCIjYs
 ### docker official web service
-- docker hub: https://hub.docker.com/
+- docker hub: https://hub.docker.com/0
 - docker docs: https://docs.docker.com/engine/reference/run/
 ### process 및 docker
 - 널널한 개발자
@@ -74,24 +74,48 @@ It is then forbidden to pull ready-made Docker images, as well as using services
 - Your containers have to restart in case of a crash.
 - 당신의 컨테이너는 crash 같은 상황에 restart 되어야 한다.
 
-- A Docker container is not a virtual machine. Thus, it is not recommended to use any hacky patch based on ’tail -f’ and so forth when trying to run it. Read about how daemons work and whether it’s a good idea to use them or not.
-- 도커 컨테이너는 가상 머신이 아니다. 그러므로 
+- A Docker container is not a virtual machine.
+- 도커 컨테이너는 가상 머신이 아니다.
+
+- Thus, it is not recommended to use any hacky patch based on ’tail -f’ and so forth when trying to run it.
+-  그러므로 'tail -f' 등의 기반으로 된 hacky patch 를 사용하는 것은 추천되지 않습니다.
+
+- Read about how daemons work and whether it’s a good idea to use them or not.
+- daemons 이 어떻게 작동하는지와, 그것을 사용하는 것이 좋은 것인지 나쁜 것인지 읽어 보세요.
 
 ### page 6
-Of course, using network: host or --link or links: is forbidden.
-The network line must be present in your docker-compose.yml file.
-Your containers musn’t be started with a command running an infinite
-loop. Thus, this also applies to any command used as entrypoint, or
-used in entrypoint scripts. The following are a few prohibited hacky
-patches: tail -f, bash, sleep infinity, while true.
-Read about PID 1 and the best practices for writing Dockerfiles.
-- In your WordPress database, there must be two users, one of them being the administrator. The administrator’s username can’t contain admin/Admin or administrator/Administrator (e.g., admin, administrator, Administrator, admin-123, and
-so forth).
-Your volumes will be available in the /home/login/data folder of the
-host machine using Docker. Of course, you have to replace the login
-with yours.
-To make things simpler, you have to configure your domain name so it points to your
-local IP address.
+- Of course, using network: host or --link or links: is forbidden.
+- 네트워크 사용할 때 주의할 점: host or --link or links 는 금지된다.
+
+- The network line must be present in your docker-compose.yml file.
+- 네트워크 라인은 docker-compose.yml 파일에 있어야 한다.
+
+- Your containers musn’t be started with a command running an infinite loop.
+- 당신의 컨테이너들은 무한 루프로 실행되는 명령어로 실행되면 안 된다.
+
+- Thus, this also applies to any command used as entrypoint, or used in entrypoint scripts.
+- 따라서, 이것은 또한 시작점에서 사용되거나 진입점 스크립트에서 사용되는 모든 명령어에 적용됩니다.
+
+- The following are a few prohibited hack patches: tail -f, bash, sleep infinity, while true.
+- 다음에 나오는 것들은 몇가지 hack patches 입니다.: tail -f, bash, sleep infinity, while true.
+
+- Read about PID 1 and the best practices for writing Dockerfiles.
+- PID 1과 Dockerfile 을 작성하기 위한 최고의 방법에 대해 읽어보세요!
+
+- In your WordPress database, there must be two users, one of them being the administrator.
+- 당신의 WordPress 데이터 베이스에 두 개의 유저가 있어야 하고, 그들 중 하나는 관리자여야 한다.
+
+- The administrator’s username can’t contain admin/Admin or administrator/Administrator (e.g., admin, administrator, Administrator, admin-123, and so forth).
+- 관리자의 유저명은 admin/Admin 또는 administrator/Administrator 를 포함할 수 없습니다. (예를 들어 admin, administrator, Administrator, admin-123 등이 있습니다.)
+
+- Your volumes will be available in the /home/login/data folder of the host machine using Docker.
+- 당신의 volumes 은 도커를 사용하는 host machine 의 /home/login/data 폴더 안에서 사용 가능하다.
+
+- Of course, you have to replace the login with yours.
+- 물론, 당신은 로그인을 당신의 것으로 교체해야 한다.
+
+- To make things simpler, you have to configure your domain name so it points to your local IP address.
+- 
 This domain name must be login.42.fr. Again, you have to use your own login.
 For example, if your login is wil, wil.42.fr will redirect to the IP address pointing to
 wil’s website.
