@@ -135,7 +135,8 @@ Here is an example diagram of the expected result:
 
 
 
-Below is an example of the expected directory structure:
+- Below is an example of the expected directory structure:
+- 아래는 완성했을 때 예상되는 디렉토리 구조 예시입니다.
 ```
 $> ls -alR
 total XX
@@ -188,10 +189,11 @@ MYSQL_PASSWORD=XXXXXXXXXXXX
 [...]
 $>
 ```
-For obvious security reasons, any credentials, API keys, env
-variables etc... must be saved locally in a .env file and ignored by
-git. Publicly stored credentials will lead you directly to a failure
-of the project.
+- For obvious security reasons, any credentials, API keys, env variables etc... must be saved locally in a .env file and ignored by git.
+- 명백한 보안적 이유로, 어떠한 증명서, API key, 환경변수 등등... .env 안에 로컬로 저장해야 하며, gitignore 을 이용해 무시해야 한다. 
+
+- Publicly stored credentials will lead you directly to a failure of the project.
+- 공개적으로 저장된 증명서는 당신을 프로젝트의 실패로 직접 데려갈겁니다.
 
 # Chapter 5
 ## Bonus part
