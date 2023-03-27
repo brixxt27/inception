@@ -226,3 +226,4 @@ names of your folders and files to ensure they are correct.
 # To do
 - 230327
   - 생활코딩 1~4강 까지 보고 notion 에 정리
+  
