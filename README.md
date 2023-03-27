@@ -222,3 +222,7 @@ mandatory requirements, your bonus part will not be evaluated at all.
 Turn in your assignment in your Git repository as usual. Only the work inside your
 repository will be evaluated during the defense. Don’t hesitate to double check the
 names of your folders and files to ensure they are correct.
+
+# To do
+- 230327
+  - 생활코딩 1~4강 까지 보고 notion 에 정리
