@@ -22,6 +22,9 @@
   - 서비스 개발자를 위한 컨테이너 뽀개기: (a.k.a 컨테이너 인터널) https://tech.kakaoenterprise.com/150
   - [컨테이너 인터널 #1] 컨테이너 톺아보기: https://tech.kakaoenterprise.com/154?category=882488
   - [컨테이너 인터널 #2] 컨테이너 파일시스템: https://tech.kakaoenterprise.com/171?category=882488
+### Ref.
+- nginx config 파일(kipark)
+  - https://nginx.org/en/docs/http/ngx_http_core_module.html#server_name
 # Chapter 1
 ## Preamble 
 - One container is not enough. We need to go deeper!
