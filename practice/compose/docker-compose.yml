@@ -1,0 +1,19 @@
+version: '3'
+services:
+  web:
+    image: nginx
+    restart: always
+    ports:
+      - "443:80"
+    depends_on:
+      - db
+  db:
+    image: mysql
+    volumes:
+      - ./DB:/var/lib/mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: 123456
+      MYSQL_DATABASE: wordpress
+      MYSQL_USER: wordpress_user
+      MYSQL_PASSWORD: 123456
