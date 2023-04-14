@@ -3,6 +3,8 @@ PATH_COMPOSE = ./srcs/docker-compose.yml
 
 all:
 	$(COMPOSE) -f $(PATH_COMPOSE) up
+ps:
+	$(COMPOSE) -f $(PATH_COMPOSE) ps
 clean:
 	$(COMPOSE) -f $(PATH_COMPOSE) down
 	rm -rf ./srcs/DB ./srcs/WordPress
@@ -15,4 +17,4 @@ re:
 fre:
 	make fclean
 	make all
-.PHONY: all clean fclean re fre
+.PHONY: all ps clean fclean re fre 
