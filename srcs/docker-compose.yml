@@ -1,41 +1,38 @@
-version: '3.7'
+version: '3'
 
+#volume:
+#  data: {}
 services:
-  DB:
-    image: mysql:5.7
-    volumes:
-      - ./DB:/var/lib/mysql
+  mariadb:
+    image: debian:buster
     restart: always
-    environment:
-      MYSQL_ROOT_PASSWORD: 123456
-      MYSQL_USER: wordpress_user
-      MYSQL_PASSWORD: 123456
-      MYSQL_DATABASE: wordpress
-
-  WordPress:
-    depends_on:
-      - DB
-    image: wordpress:latest
-    volumes:
-      - ./WordPress:/var/www/html
-    restart: always
-    environment:
-      WORDPRESS_DB_HOST: DB
-      WORDPRESS_DB_USER: wordpress_user
-      WORDPRESS_DB_PASSWORD: 123456
-      WORDPRESS_DB_NAME: wordpress
-      WORDPRESS_CONFIG_EXTRA: |
-        define('FS_METHOD', 'direct');
-        define('WP_DEBUG', true);
-        define('WP_DEBUG_LOG', true);
+    expose:
+      - '3306'
+    networks:
+      - intra
+    tty: true
 
   nginx:
-    depends_on:
-      - DB
-      - WordPress
-    image: nginx:latest
-    volumes:
-      - ./WordPress:/var/www/html
-    ports:
-      - 443:80
+    image: debian:buster
     restart: always
+    ports:
+      - '443:443'
+    volumes:
+      - ./data:/var/www/html
+    networks:
+      - intra
+    tty: true
+
+  wordpress:
+    image: debian:buster
+    restart: always
+    volumes:
+      - ./data:/var/www/html
+    expose:
+      - '9000'
+    networks:
+      - intra
+    tty: true
+networks:
+  intra:
+    driver: bridge
