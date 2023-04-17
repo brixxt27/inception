@@ -27,7 +27,6 @@ services:
 
   nginx:
     depends_on:
-      - DB
       - WordPress
     image: nginx:latest
     volumes:
