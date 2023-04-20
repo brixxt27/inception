@@ -1,36 +1,19 @@
-version: '3.7'
+version: '3'
 
 services:
-  DB:
-    image: mysql:5.7
-    volumes:
-      - ./DB:/var/lib/mysql
-    restart: always
-    environment:
-      MYSQL_ROOT_PASSWORD: 123456
-      MYSQL_USER: wordpress_user
-      MYSQL_PASSWORD: 123456
-      MYSQL_DATABASE: wordpress
-
-  WordPress:
-    depends_on:
-      - DB
-    image: wordpress:latest
-    volumes:
-      - ./WordPress:/var/www/html
-    restart: always
-    environment:
-      WORDPRESS_DB_HOST: DB
-      WORDPRESS_DB_USER: wordpress_user
-      WORDPRESS_DB_PASSWORD: 123456
-      WORDPRESS_DB_NAME: wordpress
-
   nginx:
-    depends_on:
-      - WordPress
-    image: nginx:latest
+    build: ./srcs/requirements/nginx/.
     volumes:
-      - ./WordPress:/var/www/html
+      - ./volumes/WordPress:/var/www/html
     ports:
-      - 443:80
+      - 8080:80
+    networks:
+      - jayoon
     restart: always
+    tty: true
+volumes:
+  volumes:
+networks:
+  jayoon:
+    driver: bridge
+  
