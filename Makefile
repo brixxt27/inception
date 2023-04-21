@@ -8,13 +8,13 @@ all:
 ps:
 	$(COMPOSE) -f $(PATH_COMPOSE) ps
 clean:
-	$(COMPOSE) -f $(PATH_COMPOSE) down
+	$(COMPOSE) -f $(PATH_COMPOSE) down -v
 	rm -rf ./srcs/volumes/
 fclean:
 	$(COMPOSE) -f $(PATH_COMPOSE) down --rmi all -v
 	rm -rf ./srcs/volumes/
 re:
-	make clean
+	make fclean
 	make all
 fre:
 	make fclean
