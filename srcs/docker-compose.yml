@@ -5,20 +5,22 @@ services:
     build: ./requirements/nginx/.
     volumes:
       - ./volumes/WordPress:/var/www/html
+    depends_on:
+      - wordpress
     ports:
       - 8080:80
     networks:
       - jayoon
     restart: always
     tty: true
-  #wordpress:
-  #  build: ./requirements/wordpress/.
-  #  volumes:
-  #    - ./volumes/WordPress:/var/www/html
-  #  networks:
-  #    - jayoon
-  #  restart: always
-  #  tty: true
+  wordpress:
+    build: ./requirements/wordpress/.
+    volumes:
+      - ./volumes/WordPress:/var/www/html
+    networks:
+      - jayoon
+    restart: always
+    tty: true
 
 volumes:
   volumes:

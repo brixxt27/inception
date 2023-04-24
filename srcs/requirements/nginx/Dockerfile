@@ -1,7 +1,7 @@
 FROM alpine:3.16.5
 RUN apk update && \
     apk upgrade && \
-    apk add --no-cache bash \
+    apk add --no-cache \
     nginx \
     openssl \
 	vim
@@ -12,6 +12,5 @@ ADD ./conf/default.conf /etc/nginx/http.d/default.conf
 #    chmod -R 755 /var/lib/nginx && \
 #    chmod -R 755 /var/log/nginx && \
 #    chmod -R 755 /etc/nginx
-COPY tools/test.sh /
-WORKDIR /var/www/html
-CMD ["/bin/sh", "/test.sh"]
+COPY tools/nginx.sh /shellscript/nginx.sh
+CMD ["/bin/sh", "/shellscript/nginx.sh"]
