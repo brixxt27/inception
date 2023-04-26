@@ -1,4 +1,5 @@
 # Inception
+## Inception issue list: [설계 및 이슈 해결](https://github.com/brixxt27/inception/issues/2)
 ### Summary: This document is a System Administration related exercise. Version: 1.3
 # 공부 자료
 ### 네트워크 및 docker 기본 (서말 참고: https://seomal.com/map/1/129)
