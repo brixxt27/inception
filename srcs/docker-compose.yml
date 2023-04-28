@@ -13,14 +13,14 @@ services:
       - jayoon
     restart: always
     tty: true
-  #wordpress:
-  #  build: ./requirements/wordpress/.
-  #  volumes:
-  #    - ./volumes/WordPress:/var/www/html
-  #  networks:
-  #    - jayoon
-  #  restart: always
-  #  tty: true
+  wordpress:
+    build: ./requirements/wordpress/.
+    volumes:
+      - ./volumes/WordPress:/var/www/html
+    networks:
+      - jayoon
+    restart: always
+    tty: true
 
 volumes:
   volumes:
