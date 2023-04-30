@@ -5,21 +5,7 @@ RUN	    apk update && apk upgrade && \
 		bash \
 		vim \
 		openrc \
-        mysql-client \
-        mysql \
-        php8-fpm \
-        php8-mysqli
-#RUN apk update && apk upgrade && \
-#    apk add php8 && \
-#    apk add php8-fpm && \
-#    apk add php8-phar && \
-#    apk add php8-json && \
-#    apk add php8-exif && \
-#    apk add php8-mysqli && \
-#	apk add php8-mysqlnd && \
-#    apk add php8-openssl && \
-#    apk add mariadb-client && \
-#    apk add curl iputils
+		php8 php8-fpm php8-mysqli php8-json php8-openssl php8-curl php8-zlib php8-xml php8-phar php8-intl php8-dom php8-xmlreader php8-ctype php8-mbstring php8-gd
     
 EXPOSE 9000
 
@@ -32,3 +18,15 @@ ADD config/wordpress.conf /etc/php8/php-fpm.d/www.conf
 #ADD script/wordpress.sh /tmp/wordpress.sh
 
 #CMD ["/bin/sh", "/tmp/wordpress.sh"]
+
+#RUN apk update && apk upgrade && \
+#    apk add php8 && \
+#    apk add php8-fpm && \
+#    apk add php8-phar && \
+#    apk add php8-json && \
+#    apk add php8-exif && \
+#    apk add php8-mysqli && \
+#	apk add php8-mysqlnd && \
+#    apk add php8-openssl && \
+#    apk add mariadb-client && \
+#    apk add curl iputils

@@ -1,6 +1,28 @@
 version: '3'
 
 services:
+  mysql:
+    build: ./requirements/mysql/.
+    volumes:
+      - ./volumes/DB:/var/lib/mysql
+    env_file: .env
+    networks:
+      - jayoon
+    restart: always
+    tty: true
+
+  wordpress:
+    build: ./requirements/wordpress/.
+    volumes:
+      - ./volumes/WordPress:/var/www/html
+    depends_on:
+      - mysql
+    env_file: .env
+    networks:
+      - jayoon
+    restart: always
+    tty: true
+
   nginx:
     build: ./requirements/nginx/.
     volumes:
@@ -13,17 +35,10 @@ services:
       - jayoon
     restart: always
     tty: true
-  wordpress:
-    build: ./requirements/wordpress/.
-    volumes:
-      - ./volumes/WordPress:/var/www/html
-    networks:
-      - jayoon
-    restart: always
-    tty: true
-
+    
 volumes:
-  volumes:
+  WordPress:
+  DB:
 networks:
   jayoon:
     driver: bridge
