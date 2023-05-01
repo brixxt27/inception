@@ -11,7 +11,7 @@ RUN	    apk update && apk upgrade && \
 EXPOSE	9000
 COPY	./conf/www.conf /etc/php8/php-fpm.d/www.conf
 # wp-config.php 파일을 cli 로 만들기 때문에 따로 복사할 필요가 없을 것이다.
-COPY	./conf/wp-config.php /var/www/html/wp-config.php
+#COPY	./conf/wp-config.php /
 COPY    tools/wordpress.sh /tools/wordpress.sh
 CMD		["/bin/sh", "/tools/wordpress.sh"]
 

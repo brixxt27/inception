@@ -5,8 +5,9 @@ services:
     build: ./requirements/mysql/.
     container_name: mysql
     volumes:
-      - ./volumes/DB:/var/lib/mysql
-    env_file: .env
+      - ./db_data:/var/lib/mysql
+    env_file:
+      - .env
     networks:
       - jayoon
     restart: always
@@ -16,10 +17,11 @@ services:
     build: ./requirements/wordpress/.
     container_name: wordpress
     volumes:
-      - ./volumes/WordPress:/var/www/html
+      - ./wp_data:/var/www/html
     depends_on:
       - mysql
-    env_file: .env
+    env_file:
+      - .env
     networks:
       - jayoon
     restart: always
@@ -29,10 +31,9 @@ services:
     build: ./requirements/nginx/.
     container_name: nginx
     volumes:
-      - ./volumes/WordPress:/var/www/html
+      - ./wp_data:/var/www/html
     depends_on:
       - wordpress
-      #- mysql
     ports:
       - 8080:80
       - 443:443
@@ -40,11 +41,11 @@ services:
       - jayoon
     restart: always
     tty: true
-    
+
 volumes:
-  WordPress:
-  DB:
+  wp_data:
+  db_data:
+
 networks:
   jayoon:
     driver: bridge
-  
