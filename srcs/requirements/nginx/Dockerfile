@@ -5,9 +5,9 @@ RUN	    apk update && apk upgrade && \
 		bash \
 		vim \
 		openrc
-ADD     ./conf/nginx.conf /etc/nginx/http.d/jayoon.42.fr.conf
-COPY    tools/nginx.sh /shellscript/nginx.sh
-CMD     ["/bin/sh", "/shellscript/nginx.sh"]
+ADD     ./conf/jayoon.42.fr.conf /etc/nginx/http.d/jayoon.42.fr.conf
+COPY    tools/nginx.sh /tools/nginx.sh
+CMD     ["/bin/sh", "/tools/nginx.sh"]
 #RUN chown -R nginx:nginx /var/lib/nginx && \
 #    chown -R nginx:nginx /var/log/nginx && \
 #    chown -R nginx:nginx /etc/nginx && \
