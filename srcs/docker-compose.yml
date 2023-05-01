@@ -3,6 +3,7 @@ version: '3'
 services:
   mysql:
     build: ./requirements/mysql/.
+    container_name: mysql
     volumes:
       - ./volumes/DB:/var/lib/mysql
     env_file: .env
@@ -13,6 +14,7 @@ services:
 
   wordpress:
     build: ./requirements/wordpress/.
+    container_name: wordpress
     volumes:
       - ./volumes/WordPress:/var/www/html
     depends_on:
@@ -25,12 +27,15 @@ services:
 
   nginx:
     build: ./requirements/nginx/.
+    container_name: nginx
     volumes:
       - ./volumes/WordPress:/var/www/html
     depends_on:
       - wordpress
+      #- mysql
     ports:
       - 8080:80
+      - 443:443
     networks:
       - jayoon
     restart: always
