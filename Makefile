@@ -4,7 +4,7 @@ PATH_COMPOSE = ./srcs/docker-compose.yml
 all:
 	mkdir -p ./srcs/volumes
 	chown -R $(USER) ./srcs/volumes
-	$(COMPOSE) -f $(PATH_COMPOSE) up
+	$(COMPOSE) -f $(PATH_COMPOSE) up -d
 ps:
 	$(COMPOSE) -f $(PATH_COMPOSE) ps
 clean:

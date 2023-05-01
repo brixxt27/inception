@@ -5,17 +5,23 @@ RUN	    apk update && apk upgrade && \
 		bash \
 		vim \
 		openrc \
+		curl \
+		mysql-client \
 		php8 php8-fpm php8-mysqli php8-json php8-openssl php8-curl php8-zlib php8-xml php8-phar php8-intl php8-dom php8-xmlreader php8-ctype php8-mbstring php8-gd
-    
-EXPOSE 9000
+EXPOSE	9000
+COPY	conf/www.conf /etc/php8/php-fpm.d/www.conf
+# wp-config.php 파일을 cli 로 만들기 때문에 따로 복사할 필요가 없을 것이다.
+#COPY	conf/wp-config.php /var/www/html/wp-config.php
+COPY    tools/wordpress.sh /tools/wordpress.sh
+CMD		["/bin/sh", "/tools/wordpress.sh"]
 
-#RUN curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
-#RUN chmod +x wp-cli.phar
-#RUN	mv wp-cli.phar /usr/bin/wp
-
-ADD config/wordpress.conf /etc/php8/php-fpm.d/www.conf
 #ADD config/wp-config.php /tmp/wp-config.php
 #ADD script/wordpress.sh /tmp/wordpress.sh
+#RUN		curl -o /tmp/wordpress.tar.gz -SL https://wordpress.org/latest.tar.gz && \
+#		tar -xzf /tmp/wordpress.tar.gz -C /tmp/ && \
+#		cp -R /tmp/wordpress/* /var/www/html/ && \
+#		ls -al /var/www/html/
+#CMD		["php-fpm8", "-F"]
 
 #CMD ["/bin/sh", "/tmp/wordpress.sh"]
 
