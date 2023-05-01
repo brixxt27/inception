@@ -9,9 +9,9 @@ RUN	    apk update && apk upgrade && \
 		mysql-client \
 		php8 php8-fpm php8-mysqli php8-json php8-openssl php8-curl php8-zlib php8-xml php8-phar php8-intl php8-dom php8-xmlreader php8-ctype php8-mbstring php8-gd
 EXPOSE	9000
-COPY	conf/www.conf /etc/php8/php-fpm.d/www.conf
+COPY	./conf/www.conf /etc/php8/php-fpm.d/www.conf
 # wp-config.php 파일을 cli 로 만들기 때문에 따로 복사할 필요가 없을 것이다.
-#COPY	conf/wp-config.php /var/www/html/wp-config.php
+COPY	./conf/wp-config.php /var/www/html/wp-config.php
 COPY    tools/wordpress.sh /tools/wordpress.sh
 CMD		["/bin/sh", "/tools/wordpress.sh"]
 
