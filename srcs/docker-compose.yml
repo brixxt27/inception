@@ -13,19 +13,19 @@ services:
     restart: always
     tty: true
 
-  wordpress:
-    build: ./requirements/wordpress/.
-    container_name: wordpress
-    volumes:
-      - ./wp_data:/var/www/html
-    depends_on:
-      - mysql
-    env_file:
-      - .env
-    networks:
-      - jayoon
-    restart: always
-    tty: true
+  #wordpress:
+  #  build: ./requirements/wordpress/.
+  #  container_name: wordpress
+  #  volumes:
+  #    - ./wp_data:/var/www/html
+  #  depends_on:
+  #    - mysql
+  #  env_file:
+  #    - .env
+  #  networks:
+  #    - jayoon
+  #  restart: always
+  #  tty: true
 
   nginx:
     build: ./requirements/nginx/.
@@ -33,7 +33,8 @@ services:
     volumes:
       - ./wp_data:/var/www/html
     depends_on:
-      - wordpress
+    #  - wordpress
+      - mysql
     ports:
       - 8080:80
       - 443:443

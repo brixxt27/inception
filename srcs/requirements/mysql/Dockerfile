@@ -5,10 +5,14 @@ RUN	    apk update && apk upgrade && \
 		vim \
 		openrc \
 		mysql mysql-client
-COPY	./conf/mysql.conf /etc/mysql/
-COPY	./tools/mysql.sh /tools/mysql.sh
+RUN		mkdir -p /run/mysqld
+RUN		chown -R mysql:mysql /run/mysqld
+#RUN		mkdir -p /var/lib/mysql
+#RUN		chown -R mysql:mysql /var/lib/mysql
+#COPY	./conf/mysql.conf /etc/mysql/
+#COPY	./tools/mysql.sh /tools/mysql.sh
 EXPOSE	3306
-CMD 	["/bin/sh", "/tools/mysql.sh"]
+#CMD 	["/bin/sh", "/tools/mysql.sh"]
 
 #RUN curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
 #RUN chmod +x wp-cli.phar

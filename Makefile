@@ -14,7 +14,4 @@ fclean:
 re:
 	make fclean
 	make all
-fre:
-	make fclean
-	make all
 .PHONY: all ps clean fclean re fre 
