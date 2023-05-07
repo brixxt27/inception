@@ -13,6 +13,7 @@ RUN apk update && apk upgrade && apk add --no-cache mariadb mariadb-client && \
       echo 'skip-name-resolve'; \
       echo 'bind-address=0.0.0.0'; \
     } | tee  /etc/my.cnf.d/docker.cnf; \
+    # tee 는 표준입력으로 받은 것을 표준 출력과 파일로 보낼 수 있다.
     sed -i "s|skip-networking|skip-networking=0|g" \
       /etc/my.cnf.d/mariadb-server.cnf && \
     mysql_install_db --user=mysql --datadir=/var/lib/mysql
