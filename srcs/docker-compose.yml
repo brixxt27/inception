@@ -74,12 +74,12 @@ services:
     build:
       context: .
       dockerfile: requirements/bonus/vsftpd/Dockerfile
-      #args:
-      #  FTP_USR: ${FTP_USR}
-      #  FTP_PWD: ${FTP_PWD}
+      args:
+        FTP_USR: ${FTP_USR}
+        FTP_PWD: ${FTP_PWD}
     image: vsftpd
-    env_file:
-      - .env
+    #env_file:
+    #  - .env
     container_name: vsftpd
     ports:
       - "21:21"
