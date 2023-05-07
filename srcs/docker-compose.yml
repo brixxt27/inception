@@ -1,52 +1,138 @@
 version: '3'
 
 services:
-  mysql:
-    build: ./requirements/mysql/.
-    container_name: mysql
+  mariadb:
+    build:
+      context: .
+      dockerfile: requirements/mariadb/Dockerfile
+      args:
+        DB_NAME: ${DB_NAME}
+        DB_USER: ${DB_USER}
+        DB_PASS: ${DB_PASS}
+        DB_ROOT: ${DB_ROOT}
+    image: mariadb
+    container_name: mariadb
+    ports:
+      - "3306:3306"
+    networks:
+      - jayoon_net
     volumes:
-      - ./db_data:/var/lib/mysql
+      - db-volume:/var/lib/mysql
+    restart: always
+
+  wordpress:
+    depends_on:
+      - mariadb
+    build:
+      context: .
+      dockerfile: requirements/wordpress/Dockerfile
+      args:
+        DB_NAME: ${DB_NAME}
+        DB_USER: ${DB_USER}
+        DB_PASS: ${DB_PASS}
+    image: wordpress
     env_file:
       - .env
+    container_name: wordpress
     networks:
-      - jayoon
+      - jayoon_net
+    volumes:
+      - wp-volume:/var/www/html
     restart: always
-    tty: true
-
-  #wordpress:
-  #  build: ./requirements/wordpress/.
-  #  container_name: wordpress
-  #  volumes:
-  #    - ./wp_data:/var/www/html
-  #  depends_on:
-  #    - mysql
-  #  env_file:
-  #    - .env
-  #  networks:
-  #    - jayoon
-  #  restart: always
-  #  tty: true
 
   nginx:
-    build: ./requirements/nginx/.
-    container_name: nginx
-    volumes:
-      - ./wp_data:/var/www/html
     depends_on:
-    #  - wordpress
-      - mysql
+      - wordpress
+    build:
+      context: .
+      dockerfile: requirements/nginx/Dockerfile
+    image: nginx
+    container_name: nginx
     ports:
-      - 8080:80
-      - 443:443
+      - "443:443"
     networks:
-      - jayoon
+      - jayoon_net
+    volumes:
+      - wp-volume:/var/www/html
     restart: always
-    tty: true
+
+  redis:
+    build:
+      context: .
+      dockerfile: requirements/bonus/redis/Dockerfile
+    image: redis
+    container_name: redis
+    ports:
+      - "6379:6379"
+    networks:
+      - jayoon_net
+    restart: always
+
+  vsftpd:
+    build:
+      context: .
+      dockerfile: requirements/bonus/vsftpd/Dockerfile
+      args:
+        FTP_USR: ${FTP_USR}
+        FTP_PWD: ${FTP_PWD}
+    image: vsftpd
+    container_name: vsftpd
+    ports:
+      - "21:21"
+    volumes:
+      - wp-volume:/var/www/html
+    networks:
+     - jayoon_net
+    restart: always
+
+  adminer:
+    depends_on:
+      - mariadb
+    build:
+      context: .
+      dockerfile: requirements/bonus/adminer/Dockerfile
+    image: adminer
+    container_name: adminer
+    ports:
+      - "8080:8080"
+    networks:
+     - jayoon_net
+    restart: always
+
+  website:
+    build:
+      context: .
+      dockerfile: requirements/bonus/website/Dockerfile
+    image: website
+    container_name: website
+    ports:
+      - "1000:1000"
+    restart: always
+
+  flask:
+    build:
+      context: .
+      dockerfile: requirements/bonus/flask/Dockerfile
+    image: flask
+    container_name: flask
+    ports:
+      - "5000:5000"
+    restart: always
+
 
 volumes:
-  wp_data:
-  db_data:
+  wp-volume:
+    driver_opts:
+      o: bind
+      type: none
+      device: /home/${USER}/data/wordpress
+
+  db-volume:
+    driver_opts:
+      o: bind
+      type: none
+      device: /home/${USER}/data/mariadb
 
 networks:
-  jayoon:
-    driver: bridge
+    jayoon_net:
+        driver: bridge
