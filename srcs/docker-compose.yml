@@ -10,8 +10,8 @@ services:
         DB_USER: ${DB_USER}
         DB_PASS: ${DB_PASS}
         DB_ROOT: ${DB_ROOT}
-    env_file:
-      - .env
+    #env_file:
+    #  - .env
     image: mariadb
     container_name: mariadb
     ports:
@@ -28,6 +28,10 @@ services:
     build:
       context: .
       dockerfile: requirements/wordpress/Dockerfile
+      args:
+        DB_NAME: ${DB_NAME}
+        DB_USER: ${DB_USER}
+        DB_PASS: ${DB_PASS}
     env_file:
       - .env
     image: wordpress
