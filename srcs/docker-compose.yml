@@ -5,12 +5,14 @@ services:
     build:
       context: .
       dockerfile: requirements/mariadb/Dockerfile
-      args:
-        DB_NAME: ${DB_NAME}
-        DB_USER: ${DB_USER}
-        DB_PASS: ${DB_PASS}
-        DB_ROOT: ${DB_ROOT}
+      #args:
+      #  DB_NAME: ${DB_NAME}
+      #  DB_USER: ${DB_USER}
+      #  DB_PASS: ${DB_PASS}
+      #  DB_ROOT: ${DB_ROOT}
     image: mariadb
+    env_file:
+      - .env
     container_name: mariadb
     ports:
       - "3306:3306"
@@ -72,10 +74,12 @@ services:
     build:
       context: .
       dockerfile: requirements/bonus/vsftpd/Dockerfile
-      args:
-        FTP_USR: ${FTP_USR}
-        FTP_PWD: ${FTP_PWD}
+      #args:
+      #  FTP_USR: ${FTP_USR}
+      #  FTP_PWD: ${FTP_PWD}
     image: vsftpd
+    env_file:
+      - .env
     container_name: vsftpd
     ports:
       - "21:21"
