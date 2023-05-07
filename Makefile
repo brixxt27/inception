@@ -18,8 +18,7 @@ clean: down
 	docker system prune -a
 
 fclean:
-	docker stop $(docker ps -qa)
-#docker stop $$(docker ps -qa)
+	docker stop $$(docker ps -qa)
 	docker system prune --all --force --volumes
 	sudo rm -rf ~/data
 
