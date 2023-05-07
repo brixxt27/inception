@@ -10,8 +10,6 @@ services:
         DB_USER: ${DB_USER}
         DB_PASS: ${DB_PASS}
         DB_ROOT: ${DB_ROOT}
-    #env_file:
-    #  - .env
     image: mariadb
     container_name: mariadb
     ports:
