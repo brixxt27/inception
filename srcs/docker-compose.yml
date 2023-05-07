@@ -5,9 +5,12 @@ services:
     build:
       context: .
       dockerfile: requirements/mariadb/Dockerfile
+      args:
+        DB_NAME: ${DB_NAME}
+        DB_USER: ${DB_USER}
+        DB_PASS: ${DB_PASS}
+        DB_ROOT: ${DB_ROOT}
     image: mariadb
-    #env_file:
-    #  - .env
     container_name: mariadb
     ports:
       - "3306:3306"
@@ -23,9 +26,9 @@ services:
     build:
       context: .
       dockerfile: requirements/wordpress/Dockerfile
+    env_file:
+      - .env
     image: wordpress
-    #env_file:
-    #  - .env
     container_name: wordpress
     networks:
       - jayoon_net
