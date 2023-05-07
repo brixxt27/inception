@@ -1,9 +1,6 @@
 FROM alpine:3.16
 
 ARG PHP_VERSION=8
-#    DB_NAME \
-#    DB_USER \
-#    DB_PASS
 
 RUN apk update && apk upgrade && apk add --no-cache \
     php${PHP_VERSION} \
