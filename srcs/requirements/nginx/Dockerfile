@@ -1,4 +1,5 @@
 FROM alpine:3.16
+
 RUN  apk update && apk upgrade && apk add --no-cache nginx && \
      apk add openssl && \
      mkdir -p /etc/nginx/ssl && \
@@ -16,7 +17,10 @@ RUN  apk update && apk upgrade && apk add --no-cache nginx && \
      # 인증서에 포함될 정보 설정 국가(C), 지역(ST), 조직(O), 부서(OU), 일반 이름(CN)
      chown nginx /etc/nginx/ssl/jayoon.42.fr.crt && \
      chown nginx /etc/nginx/ssl/jayoon.42.fr.key
+
 EXPOSE 443
+
 COPY ./requirements/nginx/conf/default.conf /etc/nginx/http.d/default.conf
 # 443 포트로만 열려 있게 하기 위해선 기존 default.conf 파일을 삭제하고 새로운 default.conf 파일을 복사해야 함
+
 CMD ["nginx", "-g", "daemon off;"]

@@ -28,10 +28,10 @@ services:
     build:
       context: .
       dockerfile: requirements/wordpress/Dockerfile
-      args:
-        DB_NAME: ${DB_NAME}
-        DB_USER: ${DB_USER}
-        DB_PASS: ${DB_PASS}
+      #args:
+      #  DB_NAME: ${DB_NAME}
+      #  DB_USER: ${DB_USER}
+      #  DB_PASS: ${DB_PASS}
     image: wordpress
     env_file:
       - .env

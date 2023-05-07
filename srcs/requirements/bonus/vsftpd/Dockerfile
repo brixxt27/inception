@@ -1,7 +1,7 @@
 FROM alpine:3.16
 
-ARG FTP_USR \
-    FTP_PWD
+#ARG FTP_USR \
+#    FTP_PWD
 
 RUN apk update && apk upgrade && \
     apk add --no-cache vsftpd && \
