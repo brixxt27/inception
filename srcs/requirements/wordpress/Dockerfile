@@ -38,6 +38,7 @@ RUN apk update && apk upgrade && apk add --no-cache \
 
 WORKDIR /var/www/html
 
+EXPOSE 9000
 
 RUN curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar && \
     chmod +x wp-cli.phar && \
