@@ -1,6 +1,6 @@
 FROM alpine:3.16
 
-#ARG PHP_VERSION=8
+ARG PHP_VERSION=8
 
 RUN apk update && apk upgrade && apk add --no-cache \
     php${PHP_VERSION} \
