@@ -48,5 +48,6 @@ COPY ./requirements/wordpress/conf/wp-config-create.sh .
 COPY ./requirements/wordpress/tools/script.sh .
 
 RUN sh wp-config-create.sh && rm wp-config-create.sh
+# RUN 명령은 빌드타임 명령어이다. 이미지 빌드 중 wp-config-create.sh를 실행하면서 wp-config.php 파일을 생성하기 때문에 ARG로 받은 DB_NAME, DB_USER, DB_PASS를 사용할 수 있다.
 
 CMD ["/bin/sh", "/var/www/html/script.sh"]
